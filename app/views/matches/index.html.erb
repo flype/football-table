@@ -1,5 +1,10 @@
 <h1>Matches</h1>
-
+<ul>
 <% @matches.each do |match| %>
-	<%= match.name %> (<%= match.result %>)
+	<li><%= match.name %> (<%= match.result %>)</li>
 <% end %>
+</ul>
+
+<h2><%= link_to 'Start A Match', new_match_path %></h2>
+
+<p><%= link_to 'add players', players_path %></p>

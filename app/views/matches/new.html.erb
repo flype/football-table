@@ -1,11 +1,11 @@
 <h1>Create a new Match</h1>
 
 <%= form_for @match do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-	<%= f.select :white_attacker_id, 	 player_selector , :prompt => 'White attacker' %>
-	<%= f.select :white_goalkeeper_id, player_selector , :prompt => 'White Goalkeeper' %>	
-	<%= f.select :red_attacker_id, 		 player_selector , :prompt => 'Red attacker' %>
-	<%= f.select :red_goalkeeper_id, 	 player_selector , :prompt => 'Red Goalkeeper' %>	
+	<p><%= f.label :name %>
+	<%= f.text_field :name %></p>
+	<p><%= f.select :white_attacker_id, 	 player_selector , :prompt => 'White attacker' %></p>
+	<p><%= f.select :white_goalkeeper_id, player_selector , :prompt => 'White Goalkeeper' %>	</p>
+	<p><%= f.select :red_attacker_id, 		 player_selector , :prompt => 'Red attacker' %></p>
+	<p><%= f.select :red_goalkeeper_id, 	 player_selector , :prompt => 'Red Goalkeeper' %>	</p>
 	<%= submit_tag "Start game" %>
 <% end %>
