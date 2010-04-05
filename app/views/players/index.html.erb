@@ -1,0 +1,15 @@
+<h1>Players list:</h1>
+
+<ul>
+<% @players.each do |player| %>
+	<li class="player"><%= image_tag player.gravatar_url %> <%= player.name %></li>
+<% end %>
+</ul>
+
+<%= form_for Player.new do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	<%= f.label :email %>
+	<%= f.text_field :email %>
+	<%= submit_tag "Add" %>
+<% end %>

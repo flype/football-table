@@ -51,7 +51,7 @@ document.observe("dom:loaded", function() {
       handleRemote(element);
       event.stop();
     }
-
+		alert("kk");
     var element = event.findElement("a[data-method]");
     if (element && element.readAttribute('data-remote') != 'true') {
       var method = element.readAttribute('data-method'),

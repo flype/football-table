@@ -1,5 +1,12 @@
 FootballTable::Application.routes.draw do |map|
-  resources :matches
+  resources :matches do
+    resources :goals
+    member do
+      get :play
+    end
+  end
+  
+  resources :players
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

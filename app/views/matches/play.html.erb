@@ -1,0 +1,8 @@
+<h1><%= @match.name %></h1>
+<div id="result"><%= @match.result %></div>
+<div class="goal_link">
+	<%= link_to @match.white_goalkeeper.name, match_goal_path(@match, @match.white_goalkeeper.id), :method => :post %>
+	<%= link_to @match.white_attacker.name, match_goal_path(@match, @match.white_attacker.id), :method => :post  %>
+	<%= link_to @match.red_goalkeeper.name, match_goal_path(@match, @match.red_goalkeeper.id), :method => :post  %>
+	<%= link_to @match.red_attacker.name, match_goal_path(@match, @match.red_attacker.id), :method => :post  %>
+</div>

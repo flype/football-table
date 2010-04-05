@@ -11,5 +11,6 @@
 #
 
 class Player < ActiveRecord::Base
+  is_gravtastic :email, :size => 50
   has_many :matchs
 end
