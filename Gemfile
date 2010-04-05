@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta2'
+gem 'annotate-models'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
-	gem 'pg'
+#	gem 'pg'
 end
 group :development, :test do
 	gem 'sqlite3-ruby', :require => 'sqlite3'
@@ -26,6 +27,13 @@ end
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end
+group :test do
+  gem 'factory_girl', :git => "git://github.com/thoughtbot/factory_girl.git", :branch => "rails3"
+	gem 'shoulda', :git => "git://github.com/thoughtbot/shoulda.git", :branch => "rails3"
+	gem 'steak', :git => "git://github.com/cavalle/steak.git", :branch => "rails3"
+	gem 'mocha'
+	gem 'autotest-rails'
+	gem "fakeweb",      "1.2.6"
+  gem "redgreen",     "1.2.2"
+	gem 'turn'
+end
