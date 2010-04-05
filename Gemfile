@@ -8,7 +8,7 @@ gem 'gravtastic'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
-	gem 'pg'
+	# gem 'pg'
 end
 group :development, :test do
 	gem 'sqlite3-ruby', :require => 'sqlite3'
