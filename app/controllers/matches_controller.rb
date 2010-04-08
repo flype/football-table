@@ -1,11 +1,18 @@
 class MatchesController < ApplicationController
   
   def index
-    @matches = Match.all
+    @matches = Match.all :limit => 3
+    @pichichi = Player.pichichi
+    @zamora = Player.zamora
   end
   
   def new
     @match = Match.new
+  end
+  
+  def show
+    @match = Match.find(params[:id])
+    render :action => 'play'
   end
   
   def create

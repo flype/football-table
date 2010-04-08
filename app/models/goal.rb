@@ -14,6 +14,17 @@ class Goal < ActiveRecord::Base
   belongs_to :player
   belongs_to :match
   
-  scope :by_player, lambda {|player| where(:player_id => player.id) }
+  scope :by_player,  lambda {|player| where(:player_id => player.id) }
   scope :by_players, lambda {|*players| where('player_id = ? OR player_id = ?', players[0].id, players[1].id) } 
+  
+  after_create :check_match_result
+  
+  private
+  
+  def check_match_result
+    if match.finnish?
+      match.end_time = Time.now
+      match.save
+    end
+  end
 end

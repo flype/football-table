@@ -1,30 +1,13 @@
-<h1><%= @match.name %></h1>
+<p></p>
 <div id="result"><%= @match.result %></div>
+<p id="name"><%= @match.name %></p>
 <div class="goal_link">
-<ul>
-	<li>
-	<%= link_to match_goal_path(@match, @match.white_goalkeeper.id), :method => :post do %>
-		<%= image_tag @match.white_goalkeeper.gravatar_url %>
-		<%= @match.white_goalkeeper.name %>
-	<% end %>
-	</li>
-	<li>
-	<%= link_to match_goal_path(@match, @match.white_attacker.id), :method => :post do %>
-		<%= image_tag @match.white_attacker.gravatar_url %>
-		<%= @match.white_attacker.name %>
-	<% end %>
-	</li>
-	<li>
-	<%= link_to match_goal_path(@match, @match.red_goalkeeper.id), :method => :post do %>
-		<%= image_tag @match.red_goalkeeper.gravatar_url %>
-		<%= @match.red_goalkeeper.name %>
-	<% end %>
-	</li>
-	<li>
-	<%= link_to match_goal_path(@match, @match.red_attacker.id), :method => :post do %>
-		<%= image_tag @match.red_attacker.gravatar_url %>
-		<%= @match.red_attacker.name %>
-	<% end %>
-	</li>
-</ul>
+<% if @match.finnish? %>
+	<p><strong>Start time:</strong><%= @match.start_time %></p>
+	<p><strong>End time:</strong><%= @match.end_time %></p>
+	<p><strong>Goals:</strong></p>
+	<%= render :partial => 'shared/goal', :collection => @match.goals %>
+<% else %>
+	<%= render :partial => 'play_players' %>
+<% end %>
 </div>

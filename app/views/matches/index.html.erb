@@ -1,10 +1,13 @@
-<h1>Matches</h1>
-<ul>
-<% @matches.each do |match| %>
-	<li><%= match.name %> (<%= match.result %>)</li>
-<% end %>
-</ul>
+<h1>Futbolo!</h1>
 
-<h2><%= link_to 'Start A Match', new_match_path %></h2>
+<div class="button"><%= link_to 'Start A Match', new_match_path %></div>
+<div class="button"><%= link_to 'add players', players_path%></div>
 
-<p><%= link_to 'add players', players_path %></p>
+<h2>Last Matches:</h2>
+<%= render :partial => "shared/match", :collection => @matches%>
+
+<h2>Pichichi:</h2>
+<%= render :partial => "shared/player", :collection => @pichichi %>
+
+<h2>Zamora:</h2>
+<%= render :partial => "shared/player", :collection => @zamora %>

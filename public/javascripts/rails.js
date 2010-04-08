@@ -1,5 +1,5 @@
-document.observe("window.load", function() {
-  var authToken = $$('meta[name=csrf-token]').first().readAttribute('content'),
+document.observe("dom:loaded", function() {
+	  var authToken = $$('meta[name=csrf-token]').first().readAttribute('content'),
     authParam = $$('meta[name=csrf-param]').first().readAttribute('content'),
     formTemplate = '<form method="#{method}" action="#{action}">\
       #{realmethod}<input name="#{param}" value="#{token}" type="hidden">\

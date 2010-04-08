@@ -1,15 +1,13 @@
 <h1>Players list:</h1>
 
 <ul>
-<% @players.each do |player| %>
-	<li class="player"><%= image_tag player.gravatar_url %> <%= player.name %></li>
-<% end %>
+	<%= render :partial => "shared/player", :collection => @players %>
 </ul>
 
 <%= form_for Player.new do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-	<%= f.label :email %>
-	<%= f.text_field :email %>
+	<p><%= f.label :name %>
+	<%= f.text_field :name %></p>
+	<p><%= f.label :email %>
+	<%= f.text_field :email %></p>
 	<%= submit_tag "Add" %>
 <% end %>
