@@ -44,12 +44,12 @@ class Player < ActiveRecord::Base
       porteros[match.white_goalkeeper.id] += match.red_team_goals
       porteros[match.red_goalkeeper.id]   += match.white_team_goals
       
-      if porteros[match.white_goalkeeper.id] <= zamora_goals
+      if porteros[match.white_goalkeeper.id] >= zamora_goals
         zamora_goals = porteros[match.white_goalkeeper.id]
         zamora_player = match.white_goalkeeper
       end
       
-      if porteros[match.red_goalkeeper.id] <= zamora_goals
+      if porteros[match.red_goalkeeper.id] >= zamora_goals
         zamora_goals = porteros[match.red_goalkeeper.id]
         zamora_player = match.red_goalkeeper
       end

@@ -29,7 +29,7 @@ class Match < ActiveRecord::Base
   end
   
   def finnish?
-    goals.count == 10
+    goals.count >= 10
   end
   
   def white_team_goals
@@ -50,6 +50,6 @@ class Match < ActiveRecord::Base
   
   private
   def set_start_time
-    start_time = Time.now
+    self.start_time = Time.now
   end
 end

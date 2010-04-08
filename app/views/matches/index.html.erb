@@ -1,7 +1,7 @@
 <h1>Futbolo!</h1>
 
-<div class="button"><%= link_to 'Start A Match', new_match_path %></div>
-<div class="button"><%= link_to 'add players', players_path%></div>
+<div class="button"><%= link_to 'Start Match', new_match_path %></div>
+<div class="button"><%= link_to 'Players', players_path%></div>
 
 <h2>Last Matches:</h2>
 <%= render :partial => "shared/match", :collection => @matches%>
