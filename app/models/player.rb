@@ -58,7 +58,7 @@ class Player < ActiveRecord::Base
     zamora_id = nil
     porteros.each do |k,portero|
       portero["ratio"] = portero["goals"]/portero["matches"]
-      zamora_id = k if portero["ratio"] > zamora_raio
+      zamora_id = k if portero["ratio"] > zamora_ratio
     end
 
     return Player.find(zamora_id) if zamora_id
