@@ -38,22 +38,29 @@ class Player < ActiveRecord::Base
     zamora_goals = 0
     zamora_player = nil
     Match.all.each do |match|
-      porteros[match.white_goalkeeper.id] ||= 0
-      porteros[match.red_goalkeeper.id] ||= 0
+      porteros[match.white_goalkeeper.id] || = Hash.new
+      porteros[match.red_goalkeeper.id] || = Hash.new
       
-      porteros[match.white_goalkeeper.id] += match.red_team_goals
-      porteros[match.red_goalkeeper.id]   += match.white_team_goals
+      porteros[match.white_goalkeeper.id]["matches"] ||= 0
+      porteros[match.red_goalkeeper.id]["matches"] ||= 0
+      porteros[match.white_goalkeeper.id]["goals"] ||= 0
+      porteros[match.red_goalkeeper.id]["goals"] ||= 0
+
+      porteros[match.white_goalkeeper.id]["matches"] += 1
+      porteros[match.red_goalkeeper.id]["matches"] += 1
       
-      if porteros[match.white_goalkeeper.id] >= zamora_goals
-        zamora_goals = porteros[match.white_goalkeeper.id]
-        zamora_player = match.white_goalkeeper
-      end
-      
-      if porteros[match.red_goalkeeper.id] >= zamora_goals
-        zamora_goals = porteros[match.red_goalkeeper.id]
-        zamora_player = match.red_goalkeeper
-      end
+      porteros[match.white_goalkeeper.id]["goals"] += match.red_team_goals
+      porteros[match.red_goalkeeper.id]["goals"]   += match.white_team_goals
     end
-    return [zamora_player].compact
+
+    
+    zamora_ratio = 0
+    zamora_id = nil
+    porteros.each do |k,portero|
+      portero["ratio"] = portero["goals"]/portero["matches"]
+      zamora_id = k if portero["ratio"] > zamora_raio
+    end
+
+    return Player.find(zamora_id) if zamora_id
   end
 end
