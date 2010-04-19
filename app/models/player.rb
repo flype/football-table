@@ -15,6 +15,10 @@ class Player < ActiveRecord::Base
   has_many :matchs
   has_many :goals
   
+  def matchs_played
+    Match.find(:all, :conditions => ["red_goalkeeper_id = ? or white_goalkeeper_id = ? or red_attacker_id = ? or white_attacker_id = ? ", id, id, id, id])
+  end
+  
   def matchs_goalkeper
     Match.find(:all, :conditions => ["red_goalkeeper_id = ? or white_goalkeeper_id = ?", id, id])
   end
@@ -28,39 +32,59 @@ class Player < ActiveRecord::Base
   end
   
   def self.pichichi
-    find(:all, :conditions => "id in (select player_id from goals group by player_id order by count(*) DESC limit 1)")
+    Player.find(:all).sort_by(&:num_goals).reverse
   end
   
-  def self.zamora
-    # sacar porteros
-    # calcular y sumar goles en contra por partido
-    porteros = Hash.new
-    zamora_goals = 0
-    zamora_player = nil
-    Match.all.each do |match|
-      porteros[match.white_goalkeeper.id] || = Hash.new
-      porteros[match.red_goalkeeper.id] || = Hash.new
-      
-      porteros[match.white_goalkeeper.id]["matches"] ||= 0
-      porteros[match.red_goalkeeper.id]["matches"] ||= 0
-      porteros[match.white_goalkeeper.id]["goals"] ||= 0
-      porteros[match.red_goalkeeper.id]["goals"] ||= 0
-
-      porteros[match.white_goalkeeper.id]["matches"] += 1
-      porteros[match.red_goalkeeper.id]["matches"] += 1
-      
-      porteros[match.white_goalkeeper.id]["goals"] += match.red_team_goals
-      porteros[match.red_goalkeeper.id]["goals"]   += match.white_team_goals
-    end
-
-    
-    zamora_ratio = 0
-    zamora_id = nil
-    porteros.each do |k,portero|
-      portero["ratio"] = portero["goals"]/portero["matches"]
-      zamora_id = k if portero["ratio"] > zamora_ratio
-    end
-
-    return Player.find(zamora_id) if zamora_id
+  def goals_inside
+    if (matchs_goalkeper.size > matchs_attacker.size)    
+      Match.find(:all, :conditions => ["red_goalkeeper_id = ?", id]).collect { |i| i.white_team_goals }.sum +
+      Match.find(:all, :conditions => ["white_goalkeeper_id = ?", id]).collect { |i| i.red_team_goals }.sum   
+    end  
+  end  
+  
+  def num_goals
+      goals.size
+  end    
+  
+  def self.zamora    
+    find(:all).reject { |i| i.goals_inside.blank? }.sort_by(&:goals_inside)    
   end
+  
+  def goals_inside_by_match
+    if (goals_inside)
+        "%.2f" % (goals_inside/matchs_goalkeper.size)
+    end  
+  end
+  
+  def goals_by_match  
+      "%.2f" % (goals.size.to_f/(matchs_goalkeper.size + matchs_attacker.size))
+  end
+  
+  def num_matchs_played
+    matchs_goalkeper.size + matchs_attacker.size
+  end  
+  
+  def num_matchs_wins
+     Match.find(:all, :conditions => ["red_goalkeeper_id = ? or red_attacker_id = ?", id, id]).reject { |i| i.white_team_goals >= i.red_team_goals  }.count + 
+     Match.find(:all, :conditions => ["white_goalkeeper_id = ? or white_attacker_id = ?", id, id]).reject { |i| i.red_team_goals >= i.white_team_goals  }.count
+  end
+  
+  def num_matchs_losts
+     Match.find(:all, :conditions => ["red_goalkeeper_id = ? or red_attacker_id = ?", id, id]).reject { |i| i.white_team_goals <= i.red_team_goals  }.count +
+     Match.find(:all, :conditions => ["white_goalkeeper_id = ? or white_attacker_id = ?", id, id]).reject { |i| i.red_team_goals <= i.white_team_goals  }.count
+  end  
+
+  def num_matchs_equals
+     Match.find(:all, :conditions => ["red_goalkeeper_id = ? or red_attacker_id = ?", id, id]).reject { |i| (i.white_team_goals != i.red_team_goals)  }.count +
+     Match.find(:all, :conditions => ["white_goalkeeper_id = ? or white_attacker_id = ?", id, id]).reject { |i| i.red_team_goals != i.white_team_goals  }.count
+  end
+  
+  def last_racha
+      if matchs_played.collect { |mt| mt.player_wins(id) }.reverse.index(-1) != 0 
+         "Last #{matchs_played.collect { |mt| mt.player_wins(id) }.reverse.index(-1)} wins"
+      else
+        "Not Wins for #{matchs_played.collect { |mt| mt.player_wins(id) }.reverse.index(1)} matchs" 
+      end  
+  end
+  
 end

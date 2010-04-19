@@ -1,1 +1,12 @@
-<li class="player"><%= image_tag player.gravatar_url %> <%= link_to player.name, player_path(player) %>(<%= player.goals.count %>)</li>
+<li class="player"><%= image_tag player.gravatar_url %> <%= link_to player.name, player_path(player) %> <br>
+PL= <%= player.num_matchs_played %>,
+PW= <%= player.num_matchs_wins %>,
+PE= <%= player.num_matchs_equals %>,
+PL= <%= player.num_matchs_losts %>,
+GO= <%= player.goals.count %>,
+GO/PL= <%= player.goals_by_match %>,
+<% unless player.goals_inside_by_match.blank? %>
+GOE= <%= player.goals_inside %>
+GOE/PL= <%= player.goals_inside_by_match %> 
+<% end %> 
+</li> 

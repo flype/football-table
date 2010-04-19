@@ -48,6 +48,25 @@ class Match < ActiveRecord::Base
     red_team_goals
   end
   
+  def before_matchs_by_same_players
+    Match.find(:all, :conditions => ["(red_attacker_id = ? and red_goalkeeper_id = ? and white_attacker_id = ? and white_goalkeeper_id = ?) or (red_attacker_id = ? and red_goalkeeper_id = ? and white_attacker_id = ? and white_goalkeeper_id = ?) ",red_attacker.id, red_goalkeeper.id, white_attacker.id, white_goalkeeper.id,red_attacker.id, red_goalkeeper.id, white_attacker.id, white_goalkeeper.id]).collect { |i| i.player_wins(red_attacker.id) }                                          
+   end
+      
+  def player_wins(pl_id)
+    if (red_team_goals != white_team_goals)
+    
+      if ((pl_id == red_attacker.id || pl_id == red_goalkeeper.id) && (red_team_goals > white_team_goals))
+        return +1
+      elsif ((pl_id == white_attacker.id || pl_id == white_goalkeeper.id) && (red_team_goals < white_team_goals)) 
+        return +1
+      else 
+        return -1      
+      end       
+    else
+      return 0
+    end   
+  end  
+    
   private
   def set_start_time
     self.start_time = Time.now
