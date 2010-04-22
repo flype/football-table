@@ -2,11 +2,11 @@
 <div class="play_player">
 	<%= link_to match_goal_path(@match, @match.white_goalkeeper.id), :method => :post do %>
 		<%= image_tag @match.white_goalkeeper.gravatar_url %>
-		<%= @match.white_goalkeeper.name %>(<%= @match.white_goalkeeper.goals_in_match(@match) %>)
+		<%= truncate(@match.white_goalkeeper.name, :length => 15) %>(<%= @match.white_goalkeeper.goals_in_match(@match) %>)
 	<% end %>
 	<%= link_to match_goal_path(@match, @match.white_attacker.id), :method => :post do %>
 		<%= image_tag @match.white_attacker.gravatar_url %>
-		<%= @match.white_attacker.name %>(<%= @match.white_attacker.goals_in_match(@match) %>)
+		<%= truncate(@match.white_attacker.name, :length => 15) %>(<%= @match.white_attacker.goals_in_match(@match) %>)
 	<% end %>
 </div>	
 <div id="result">	
@@ -16,11 +16,11 @@
 <div class="play_player">	
 	<%= link_to match_goal_path(@match, @match.red_goalkeeper.id), :method => :post do %>
 		<%= image_tag @match.red_goalkeeper.gravatar_url %>
-		<%= @match.red_goalkeeper.name %>(<%= @match.red_goalkeeper.goals_in_match(@match) %>)
+		<%= truncate(@match.red_goalkeeper.nam, :length => 15) %>(<%= @match.red_goalkeeper.goals_in_match(@match) %>)
 	<% end %>
 	<%= link_to match_goal_path(@match, @match.red_attacker.id), :method => :post do %>
 		<%= image_tag @match.red_attacker.gravatar_url %>
-		<%= @match.red_attacker.name %>(<%= @match.red_attacker.goals_in_match(@match) %>)
+		<%= truncate(@match.red_attacker.name, :length => 15) %>(<%= @match.red_attacker.goals_in_match(@match) %>)
 	<% end %>	
 </div>
 <p id="name"><%= @match.name %></p>

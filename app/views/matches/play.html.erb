@@ -1,13 +1,13 @@
 <div class="goal_link">
 <% if @match.finnish? %>
-	<p><strong>Time:</strong><%= (@match.end_time.to_time - @match.start_time.to_time)/60 %> minutes</p>
-	<p><strong>History</strong></p>
+	<p><strong>Time:</strong><%= (@match.end_time.to_time - @match.start_time.to_time)/60 rescue "no time" %> minutes</p>
 	<p><strong>Goals:</strong></p>
 	<%= render :partial => 'shared/goal', :collection => @match.goals %>
 <% else %>
 	<%= render :partial => 'play_players' %>
 <% end %>
 
+<p><strong>History</strong></p>
 <div class="stats">
 	Played: <%= @match.before_matchs_by_same_players.size %> <br>
 	Red: <%= @match.before_matchs_by_same_players.reject { |i| i == 0 or i == -1 }.size %> Victory, <br>
