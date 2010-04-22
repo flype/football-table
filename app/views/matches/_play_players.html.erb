@@ -1,24 +1,26 @@
+<p><strong>White Team</strong></p>
 <div class="play_player">
 	<%= link_to match_goal_path(@match, @match.white_goalkeeper.id), :method => :post do %>
 		<%= image_tag @match.white_goalkeeper.gravatar_url %>
 		<%= @match.white_goalkeeper.name %>(<%= @match.white_goalkeeper.goals_in_match(@match) %>)
 	<% end %>
-</div>
-<div class="play_player">
 	<%= link_to match_goal_path(@match, @match.white_attacker.id), :method => :post do %>
 		<%= image_tag @match.white_attacker.gravatar_url %>
 		<%= @match.white_attacker.name %>(<%= @match.white_attacker.goals_in_match(@match) %>)
 	<% end %>
+</div>	
+<div id="result">	
+	<%= @match.result %>
 </div>
-<div class="play_player" >
+<p><strong>Red Team</strong></p>
+<div class="play_player">	
 	<%= link_to match_goal_path(@match, @match.red_goalkeeper.id), :method => :post do %>
 		<%= image_tag @match.red_goalkeeper.gravatar_url %>
 		<%= @match.red_goalkeeper.name %>(<%= @match.red_goalkeeper.goals_in_match(@match) %>)
 	<% end %>
-</div>
-<div class="play_player">
 	<%= link_to match_goal_path(@match, @match.red_attacker.id), :method => :post do %>
 		<%= image_tag @match.red_attacker.gravatar_url %>
 		<%= @match.red_attacker.name %>(<%= @match.red_attacker.goals_in_match(@match) %>)
-	<% end %>
+	<% end %>	
 </div>
+<p id="name"><%= @match.name %></p>

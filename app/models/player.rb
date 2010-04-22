@@ -32,7 +32,7 @@ class Player < ActiveRecord::Base
   end
   
   def self.pichichi
-    Player.find(:all).sort_by(&:num_goals).reverse
+    Player.find(:all).sort_by(&:goals_by_match).reverse
   end
   
   def goals_inside
@@ -43,11 +43,11 @@ class Player < ActiveRecord::Base
   end  
   
   def num_goals
-      goals.size
+    goals.size
   end    
   
   def self.zamora    
-    find(:all).reject { |i| i.goals_inside.blank? }.sort_by(&:goals_inside)    
+    find(:all).reject { |i| i.goals_inside.blank? }.sort_by(&:goals_inside_by_match)    
   end
   
   def goals_inside_by_match

@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
   
   def index
-    @matches = Match.all :limit => 8
+    @matches = Match.all :limit => 8, :order => "id DESC"
     @pichichi = Player.pichichi
     @zamora = Player.zamora
   end

@@ -1,42 +1,18 @@
-<p><strong>White Team</strong></p>
-<div class="play_player">
-	<%= link_to match_goal_path(@match, @match.white_goalkeeper.id), :method => :post do %>
-		<%= image_tag @match.white_goalkeeper.gravatar_url %>
-		<%= @match.white_goalkeeper.name %>(<%= @match.white_goalkeeper.goals_in_match(@match) %>)
-	<% end %>
-	<%= link_to match_goal_path(@match, @match.white_attacker.id), :method => :post do %>
-		<%= image_tag @match.white_attacker.gravatar_url %>
-		<%= @match.white_attacker.name %>(<%= @match.white_attacker.goals_in_match(@match) %>)
-	<% end %>
-</div>	
-<div id="result">	
-	<%= @match.result %>
-</div>
-<p><strong>Red Team</strong></p>
-<div class="play_player">	
-	<%= link_to match_goal_path(@match, @match.red_goalkeeper.id), :method => :post do %>
-		<%= image_tag @match.red_goalkeeper.gravatar_url %>
-		<%= @match.red_goalkeeper.name %>(<%= @match.red_goalkeeper.goals_in_match(@match) %>)
-	<% end %>
-	<%= link_to match_goal_path(@match, @match.red_attacker.id), :method => :post do %>
-		<%= image_tag @match.red_attacker.gravatar_url %>
-		<%= @match.red_attacker.name %>(<%= @match.red_attacker.goals_in_match(@match) %>)
-	<% end %>	
-</div>
-<p id="name"><%= @match.name %></p>
 <div class="goal_link">
 <% if @match.finnish? %>
 	<p><strong>Time:</strong><%= (@match.end_time.to_time - @match.start_time.to_time)/60 %> minutes</p>
 	<p><strong>History</strong></p>
-	<div class="stats">
-		Played: <%= @match.before_matchs_by_same_players.size %> <br>
-		Red: <%= @match.before_matchs_by_same_players.reject { |i| i == 0 or i == -1 }.size %> Victory, <br>
-		White: <%= @match.before_matchs_by_same_players.reject { |i| i == 0 or i == 1 }.size %> Victory, <br>
-		Equals: <%= @match.before_matchs_by_same_players.reject { |i| i == -1 or i == 1 }.size %>	 
-	</div>			
 	<p><strong>Goals:</strong></p>
 	<%= render :partial => 'shared/goal', :collection => @match.goals %>
 <% else %>
 	<%= render :partial => 'play_players' %>
 <% end %>
+
+<div class="stats">
+	Played: <%= @match.before_matchs_by_same_players.size %> <br>
+	Red: <%= @match.before_matchs_by_same_players.reject { |i| i == 0 or i == -1 }.size %> Victory, <br>
+	White: <%= @match.before_matchs_by_same_players.reject { |i| i == 0 or i == 1 }.size %> Victory, <br>
+	Equals: <%= @match.before_matchs_by_same_players.reject { |i| i == -1 or i == 1 }.size %>	 
+</div>			
+
 </div>
