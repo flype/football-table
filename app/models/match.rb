@@ -20,7 +20,7 @@ class Match < ActiveRecord::Base
   belongs_to :white_goalkeeper, :class_name => "Player"
   belongs_to :red_attacker,     :class_name => "Player"
   belongs_to :red_goalkeeper,   :class_name => "Player"
-  has_many   :goals
+  has_many   :goals, :dependent => :destroy
   
   before_create :set_start_time
   
